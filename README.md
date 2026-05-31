@@ -1,5 +1,6 @@
 https://files.catbox.moe/ejw5iq.pdf
 https://github.com/MemoryOfGood/DemoExamSSA2026
+https://drive.google.com/drive/folders/1zLRcwNIyeG1Lq0EdzxuCIEHbzA1Md3yd?usp=drive_link
 
 1. Как рассчитать подсети?
 Выбор маски подсети (префикса) зависит от того, сколько устройств (адресов) вам нужно в этой сети. В задании указаны лимиты:
