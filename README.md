@@ -1,6 +1,8 @@
 https://files.catbox.moe/ejw5iq.pdf запас
 https://github.com/MemoryOfGood/DemoExamSSA2026 хз, мб не то
 https://drive.google.com/drive/folders/1zLRcwNIyeG1Lq0EdzxuCIEHbzA1Md3yd?usp=drive_link запас если не скачивается с гитхаба
+https://github.com/peplixmain/sasamba/ 2 модуль
+
 
 1. Как рассчитать подсети?
 Выбор маски подсети (префикса) зависит от того, сколько устройств (адресов) вам нужно в этой сети. В задании указаны лимиты:
@@ -42,7 +44,7 @@ echo "default via 192.168.100.1" > /etc/net/ifaces/ens19/ipv4route
 Привязываем к порту (например, порт ge1):
 Маршрут по умолчанию (в сторону ISP): ip route 0.0.0.0/0 172.16.1.1
 
-___________________________________________________________
+______________________________________________
 1. в ISP
    >hostnamectl hostname isp; exec bash
 2. в (br-srv) (hq-cli) (hq-srv).au-team.irpo; exec bash
