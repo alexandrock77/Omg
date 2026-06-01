@@ -241,15 +241,22 @@ mv /etc/net/ifaces/ens18 /etc/net/ifaces/ens3
 systemctl restart network 
 нужно переименовать ens18 в ens3
 
+```
 
 
+# NAT ISP
+```
+iptables -t nat -A POSTROUTING -s 172.16.1.0/28 -o <внешний_интерфейс> -j MASQUERADE
+iptables -t nat -A POSTROUTING -s 172.16.2.0/28 -o <внешний_интерфейс> -j MASQUERADE
+iptables-save >> /etc/sysconfig/iptables
+systemctl enable --now iptables
 
+```
 
-
-
-
-
-
+##HQ-SRV,BR-SRV
+```
+usermod -u 2011 sshuser
+меняем id юзера и группы нагуглить надо пока хз какие команды 
 
 
 
