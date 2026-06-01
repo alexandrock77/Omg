@@ -1,6 +1,6 @@
-https://files.catbox.moe/ejw5iq.pdf
-https://github.com/MemoryOfGood/DemoExamSSA2026
-https://drive.google.com/drive/folders/1zLRcwNIyeG1Lq0EdzxuCIEHbzA1Md3yd?usp=drive_link
+https://files.catbox.moe/ejw5iq.pdf запас
+https://github.com/MemoryOfGood/DemoExamSSA2026 хз, мб не то
+https://drive.google.com/drive/folders/1zLRcwNIyeG1Lq0EdzxuCIEHbzA1Md3yd?usp=drive_link запас если не скачивается с гитхаба
 
 1. Как рассчитать подсети?
 Выбор маски подсети (префикса) зависит от того, сколько устройств (адресов) вам нужно в этой сети. В задании указаны лимиты:
@@ -110,3 +110,110 @@ service-instance vl100
 encapsulation dot1q 100
 rewrite pop 1 
 connect ip interface vl100
+
+______________________________________________
+isp 
+ root toor
+ hostnamectl set-hostname ISP
+ exec bash
+
+hq-rtr
+ admin admin
+ en
+ conf t
+ hostname hq-rtr
+ ip domain-name au-team.irpo
+ exit
+ write memory
+
+br-rtr
+ admin admin
+ en
+ conf t
+ hostname br-rtr
+ ip domain-name au-team.irpo
+ exit
+ write memory
+
+hq-sw мб надо
+ root toor
+ ovs-vsctl del-br hq-sw
+ ovs-vsctl add-br hq-sw
+ ovs-vsctl add-port hq-sw ens3 trunk=111,211,811 
+ ovs-vsctl add-port hq-sw ens4 tag=111
+ ovs-vsctl add-port hq-sw ens5 tag=211
+ ВЛАНЫ МОГУТ БЫТЬ ДРУГИМИ
+
+hq-srv
+ root toor
+ ip a -c --br
+
+ cd /etc/net/ifaces/ensВОЗМОЖНО4
+ mc
+шаг1 
+  shift+f4 
+   ~172.16.1.1/28, а может [eq знает смотрим по таблице?
+ f2
+ ipv4address ok (мб есть уже файл)
+шаг2
+ mc shift+f4 
+ default via 10.10.100.1 
+ f2
+ ipv4route ok 
+шаг3 
+ mc shift+f4
+ nameserver 77.88.8.8
+ search au-team.irpo
+ f2
+ resolv.conf ok
+ systemctl restart network
+
+hq-rtr ПЕРЕНАЗНАЧАЕМ ВЛАНЫ (МБ ДРУГИЕ БУДУТ)
+ admin admin
+ en
+ conf t
+ port ge1
+ no service-instance vl100
+ no service-instance vl200
+ no service-instance vl999
+ service-instance vl111
+ encapsulation dot1q 111
+ rewrite pop 1
+ connect ip interface vl100
+ service-instance vl211
+ encapsulation dot1q 211
+ rewrite pop 1
+ connect ip interface vl200
+ service-instance vl811
+ encapsulation dot1q 811
+ rewrite pop 1
+ connect ip interface vl999
+ 
+hq-rtr
+ en 
+ conf t
+ interface ISP
+ ip address 172.x.x.x/x 
+ exit
+ port te0 (мб)
+ service-instance ISP
+ encapsulation untagged 
+ connect ip interface ISP
+ exit
+
+ port <портксерверам> (мб te0)
+ service-instance vlan111
+ encapsulation dot1q 111
+ connect bridge <bridge> (терминал CLI >>> show bridge или оно будет преднастроено)
+ exit 
+
+ interface tunnel.1
+ ip address 172.16.10.1/30 (вероятно будет другой айпишник)
+ tunnel source <внешний_IP> (должен быть в таблице)
+ tunnel destination <BR_IP>
+
+ router ospf 1
+ router-id <IP>
+ area 0 authentication message-digest
+ network tunnel.1 area 0
+ 
