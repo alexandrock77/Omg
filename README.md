@@ -239,7 +239,7 @@ network tunnel.1 area 0
 ```bash
 mv /etc/net/ifaces/ens18 /etc/net/ifaces/ens3
 systemctl restart network 
-
+нужно переименовать ens18 в ens3
 
 
 
