@@ -15,7 +15,7 @@ https://github.com/peplixmain/sasamba/ 2 модуль
 </details>
 
 <details>
-  <summary>Spoiler warning</summary>
+  <summary>Как расчитать подсети</summary>
 1. Как рассчитать подсети?
 Выбор маски подсети (префикса) зависит от того, сколько устройств (адресов) вам нужно в этой сети. В задании указаны лимиты:
 VLAN 100 (Серверы HQ): нужно до 64 адресов.
@@ -58,6 +58,9 @@ echo "default via 192.168.100.1" > /etc/net/ifaces/ens19/ipv4route
 
 </details>
 ______________________________________________
+<details>
+  <summary>старое, возможно не правильно</summary>
+
 1. в ISP
    >hostnamectl hostname isp; exec bash
 2. в (br-srv) (hq-cli) (hq-srv).au-team.irpo; exec bash
@@ -125,8 +128,11 @@ service-instance vl100
 encapsulation dot1q 100
 rewrite pop 1 
 connect ip interface vl100
-
+</details>
 ______________________________________________
+<details>
+  <summary>новое, более менее правильно</summary>
+
 isp 
  root toor
  hostnamectl set-hostname ISP
@@ -231,4 +237,4 @@ hq-rtr
  router-id <IP>
  area 0 authentication message-digest
  network tunnel.1 area 0
- 
+ </details>
