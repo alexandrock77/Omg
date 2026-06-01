@@ -175,9 +175,9 @@ root toor
 ip a -c --br
 cd /etc/net/ifaces/ensВОЗМОЖНО4
 mc
-# шаг1: shift+f4 -> ~172.16.1.1/28 (проверяем по таблице)
-# шаг2: mc shift+f4 -> default via 10.10.100.1
-# шаг3: mc shift+f4 -> nameserver 77.88.8.8, search au-team.irpo
+# шаг1: shift+f4 -> ~172.16.1.1/28 (хз я не знаю точно такой ip или другой) нажимаем f2 имя=ipv4address 
+# шаг2: mc shift+f4 -> default via 10.10.100.1 f2 имя=ipv4rooting
+# шаг3: mc shift+f4 -> nameserver 77.88.8.8, search au-team.irpo f2 имя=resolve.conf
 systemctl restart network
 ```
 
