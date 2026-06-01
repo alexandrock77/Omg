@@ -253,13 +253,69 @@ systemctl enable --now iptables
 
 ```
 
-##HQ-SRV,BR-SRV
+#HQ-SRV,BR-SRV
 ```
 usermod -u 2011 sshuser
 меняем id юзера и группы нагуглить надо пока хз какие команды 
 
+```
+#бинды
+```
+apt-get update && apt-get install bind bind-utils -y
+mcedit /var/lib/bind/etc/options.conf
+listen-on port 53 { any; };
+forwarders { 77.88.8.8; };
+allow-query { any; };
 
+mcedit /var/lib/bind/etc/rfc1912.conf
+zone "au-team.irpo" { type master; file "au-team.irpo"; };
+zone "100.10.10.in-addr.arpa" { type master; file "10.10.100.inaddr.arpa"; };
+zone "200.10.10.in-addr.arpa" { type master; file "10.10.200.inaddr.arpa"; };
 
+cd /var/lib/bind/etc/zone
+cp empty au-team.irpo
+cp empty 10.10.100.in-addr.arpa
+cp empty 10.10.200.in-addr.arpa
+
+Прямая зона:
+
+mcedit /var/lib/bind/etc/zone/au-team.irpo
+zone$TTL 1D
+@ IN SOA hq-srv.au-team.irpo. root.au-team.irpo. (
+2026051001 12H 1H 1W 1H )
+@ IN NS hq-srv.au-team.irpo.
+hq-rtr IN A 10.10.100.1
+br-rtr IN A 10.20.20.1
+hq-srv IN A 10.10.100.2
+hq-cli IN A 10.10.200.2
+br-srv IN A 10.20.20.2
+docker IN A 172.16.10.1
+web IN A 172.16.20.1
+
+Обратные зоны:
+
+mcedit /var/lib/bind/etc/zone/10.10.100.in-addr.arpa
+@ IN SOA hq-srv.au-team.irpo. root.au-team.irpo. (
+2026051001 12H 1H 1W 1H )
+@ IN NS hq-srv.au-team.irpo.
+1 IN PTR hq-rtr.au-team.irpo.
+2 IN PTR hq-srv.au-team.irpo.
+
+mcedit /var/lib/bind/etc/zone/10.10.200.in-addr.arpa
+@ IN SOA hq-srv.au-team.irpo. root.au-team.irpo. (
+2026051001 12H 1H 1W 1H )
+@ IN NS hq-srv.au-team.irpo.
+1 IN PTR hq-rtr.au-team.irpo.
+2 IN PTR hq-cli.au-team.irpo.
+
+rndc-confgen > /etc/bind/rndc.key
+sed -i '6,$d' /etc/bind/rndc.key
+chown -R named:named /var/lib/bind/etc/zone/*
+named-checkconf -z
+systemctl enable --now bind
+timedatectl set-timezone Europe/Moscow
+
+```
 
 
 
