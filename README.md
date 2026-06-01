@@ -1,3 +1,4 @@
+всем удачи
 https://files.catbox.moe/ejw5iq.pdf запас
 https://github.com/MemoryOfGood/DemoExamSSA2026 хз, мб не то
 https://drive.google.com/drive/folders/1zLRcwNIyeG1Lq0EdzxuCIEHbzA1Md3yd?usp=drive_link запас если не скачивается с гитхаба
@@ -240,7 +241,10 @@ network tunnel.1 area 0
 mv /etc/net/ifaces/ens18 /etc/net/ifaces/ens3
 systemctl restart network 
 нужно переименовать ens18 в ens3
-
+bootproto static поменять на DHCP4 в. options
+systemctl restart network
+ip -c a
+проверяешь что ip по DHCP4
 ```
 
 
@@ -256,7 +260,10 @@ systemctl enable --now iptables
 #HQ-SRV,BR-SRV
 ```
 usermod -u 2011 sshuser
-меняем id юзера и группы нагуглить надо пока хз какие команды 
+меняем id юзера и 
+passwd sshuser "enter"
+пароль пишем
+gpasswd -a sshuser wheel
 
 ```
 #бинды
