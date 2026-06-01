@@ -122,16 +122,19 @@ connect ip interface vl100
 ______________________________________________
 <details>
   <summary>новое, более менее правильно</summary>
-Настройка сети
+# Настройка сети
 
-ISP
+## ISP
 
+```bash
 root toor
 hostnamectl set-hostname ISP
 exec bash
+```
 
-HQ Router
+## HQ Router
 
+```bash
 admin admin
 en
 conf t
@@ -139,9 +142,11 @@ hostname hq-rtr
 ip domain-name au-team.irpo
 exit
 write memory
+```
 
-BR Router
+## BR Router
 
+```bash
 admin admin
 en
 conf t
@@ -149,9 +154,11 @@ hostname br-rtr
 ip domain-name au-team.irpo
 exit
 write memory
+```
 
-HQ Switch
+## HQ Switch
 
+```bash
 root toor
 ovs-vsctl del-br hq-sw
 ovs-vsctl add-br hq-sw
@@ -159,9 +166,11 @@ ovs-vsctl add-port hq-sw ens3 trunk=111,211,811
 ovs-vsctl add-port hq-sw ens4 tag=111
 ovs-vsctl add-port hq-sw ens5 tag=211
 # ВЛАНЫ МОГУТ БЫТЬ ДРУГИМИ
+```
 
-HQ Server
+## HQ Server
 
+```bash
 root toor
 ip a -c --br
 cd /etc/net/ifaces/ensВОЗМОЖНО4
@@ -170,9 +179,11 @@ mc
 # шаг2: mc shift+f4 -> default via 10.10.100.1
 # шаг3: mc shift+f4 -> nameserver 77.88.8.8, search au-team.irpo
 systemctl restart network
+```
 
-Переназначение VLAN на HQ Router
+## Переназначение VLAN на HQ Router
 
+```bash
 admin admin
 en
 conf t
@@ -192,9 +203,11 @@ service-instance vl811
 encapsulation dot1q 811
 rewrite pop 1
 connect ip interface vl999
+```
 
-Настройка интерфейсов и туннелей
+## Настройка интерфейсов и туннелей
 
+```bash
 en
 conf t
 interface ISP
@@ -221,5 +234,24 @@ router ospf 1
 router-id <IP>
 area 0 authentication message-digest
 network tunnel.1 area 0
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
  </details>
