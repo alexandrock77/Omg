@@ -176,7 +176,7 @@ root toor
 ip a -c --br
 cd /etc/net/ifaces/ensВОЗМОЖНО4
 mc
-# шаг1: shift+f4 -> ~172.16.1.1/28 (хз я не знаю точно такой ip или другой) нажимаем f2 имя=ipv4address 
+# шаг1: shift+f4 -> ~10.10.100.2/27 (хз я не знаю точно такой ip или другой) нажимаем f2 имя=ipv4address 
 # шаг2: mc shift+f4 -> default via 10.10.100.1 f2 имя=ipv4rooting
 # шаг3: mc shift+f4 -> nameserver 77.88.8.8, search au-team.irpo f2 имя=resolve.conf
 systemctl restart network
@@ -207,28 +207,28 @@ connect ip interface vl999
 ```
 
 ## Настройка интерфейсов и туннелей
-
+hq-rtr
 ```bash
 en
 conf t
 interface ISP
-ip address 172.x.x.x/x
+ip address 172.16.10.2/28
 exit
-port te0 # или другой
+port ge0 # 
 service-instance ISP
 encapsulation untagged
 connect ip interface ISP
 exit
 
-port <портксерверам> # например te0
+port <портксерверам> # например ge0
 service-instance vlan111
 encapsulation dot1q 111
 connect bridge <bridge>
 exit
 
 interface tunnel.1
-ip address 172.16.10.1/30
-tunnel source <внешний_IP>
+ip address 10.10.10.1/30
+tunnel source <внешний_IP> котороый в сторону ips
 tunnel destination <BR_IP>
 
 router ospf 1
