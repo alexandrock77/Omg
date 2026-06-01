@@ -3,7 +3,19 @@ https://github.com/MemoryOfGood/DemoExamSSA2026 хз, мб не то
 https://drive.google.com/drive/folders/1zLRcwNIyeG1Lq0EdzxuCIEHbzA1Md3yd?usp=drive_link запас если не скачивается с гитхаба
 https://github.com/peplixmain/sasamba/ 2 модуль
 
+<details>
+  <summary>Spoiler warning</summary>
+  
+  Spoiler text. Note that it's important to have a space after the summary tag. You should be able to write any markdown you want inside the `<details>` tag... just make sure you close `<details>` afterward.
+  
+  ```javascript
+  console.log("I'm a code block!");
+  ```
+  
+</details>
 
+<details>
+  <summary>Spoiler warning</summary>
 1. Как рассчитать подсети?
 Выбор маски подсети (префикса) зависит от того, сколько устройств (адресов) вам нужно в этой сети. В задании указаны лимиты:
 VLAN 100 (Серверы HQ): нужно до 64 адресов.
@@ -44,6 +56,7 @@ echo "default via 192.168.100.1" > /etc/net/ifaces/ens19/ipv4route
 Привязываем к порту (например, порт ge1):
 Маршрут по умолчанию (в сторону ISP): ip route 0.0.0.0/0 172.16.1.1
 
+</details>
 ______________________________________________
 1. в ISP
    >hostnamectl hostname isp; exec bash
