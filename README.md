@@ -235,7 +235,10 @@ router-id <IP>
 area 0 authentication message-digest
 network tunnel.1 area 0
 ```
-
+## HQ cli
+```bash
+mv /etc/net/ifaces/ens18 /etc/net/ifaces/ens3
+systemctl restart network 
 
 
 
